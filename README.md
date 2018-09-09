@@ -1,5 +1,7 @@
 # README
 
+Heroku-app: https://nvihervu-ratebeer.herokuapp.com/beers
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
