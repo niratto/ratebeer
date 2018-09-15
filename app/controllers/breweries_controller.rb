@@ -1,5 +1,6 @@
 class BreweriesController < ApplicationController
   before_action :set_brewery, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate, only: [:destroy]
 
   # GET /breweries
   # GET /breweries.json
@@ -71,4 +72,21 @@ class BreweriesController < ApplicationController
     def brewery_params
       params.require(:brewery).permit(:name, :year)
     end
+
+    def authenticate
+      admin_accounts = { "admin" => "admin", "niko" => "niko"}
+      
+      authenticate_or_request_with_http_basic do |username, password| 
+        login_ok = false
+        admin_accounts.each do |key, value|
+          if username == key and password == value
+            login_ok = true
+          end
+        end
+
+        # koodilohkon arvo on sen viimeisen komennon arvo eli true/false riippuen kirjautumisen onnistumisesta
+        login_ok  
+      end
+    end
+  
 end

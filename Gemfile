@@ -10,6 +10,7 @@ gem 'rails', '~> 5.2.1'
 
 group :development, :test do
   gem 'sqlite3'
+  gem 'pry-rails'  # lisää siis tämä rivi!
 end
 
 group :production do

@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<h1>List of Ratings</h1>
+<hr />
+<!--
+<ul>
+ <% @ratings.each do |rating| %>
+   <li> <%= rating.to_s %> </li>
+ <% end %>
+</ul>
+-->
+<ul>
+  <% @ratings.each do |rating| %>
+    <li> <%= rating.to_string %> <%= link_to 'delete', rating_path(rating.id), method: :delete, data: { confirm: 'Are you sure?' } %> </li>
+  <% end %>
+</ul>
+
+<%= link_to 'list of beers', beers_path %>
+
+<br><br>
+
+<%= link_to 'New Rating', new_rating_path %>

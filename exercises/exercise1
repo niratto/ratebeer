@@ -1,0 +1,8 @@
+b = Brewery.new name: "Brewdog", year: 2007
+b.save
+b = Beer.create name: 'Punk IPA', style: 'IPA'
+b.brewery = Brewery.find_by(name: 'Brewdog')
+b.save
+b = Beer.create name: 'Nannystate', style: 'Low-alcohol'
+b.brewery = Brewery.find_by(name: 'Brewdog')
+b.save
