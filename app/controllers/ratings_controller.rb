@@ -15,29 +15,42 @@ class RatingsController < ApplicationController
     @beers = Beer.all
   end
 
-  def create
-    # otetaan luotu reittaus muuttujaan
-    rating = Rating.create params.require(:rating).permit(:score, :beer_id)
-  
-    # talletetaan tehty reittaus sessioon
-    session[:last_rating] = "#{rating.beer.name} #{rating.score} points"
-  
-    redirect_to ratings_path
-  end
+  #def create
+  #  # otetaan luotu reittaus muuttujaan
+  #  rating = Rating.create params.require(:rating).permit(:score, :beer_id)
+  #
+  #  # talletetaan tehty reittaus sessioon
+  #  session[:last_rating] = "#{rating.beer.name} #{rating.score} points"
+  #
+  #  redirect_to ratings_path
+  #end
 
-  def destroy
+  #def destroy
     # rating = Rating.find(params[:id])
     # rating.delete
     # redirect_to ratings_path
 
-    @rating.destroy
-    respond_to do |format|
-      format.html do
-        redirect_to ratings_url,
-                    notice: 'Rating was successfully destroyed.'
-      end
-      format.json { head :no_content }
-    end
+  #  @rating.destroy
+  #  respond_to do |format|
+  #    format.html do
+  #      redirect_to ratings_url,
+  #                  notice: 'Rating was successfully destroyed.'
+  #    end
+  #    format.json { head :no_content }
+  #  end
+  #end
+
+  def create
+    rating = Rating.new params.require(:rating).permit(:score, :beer_id)
+    rating.user = current_user
+    rating.save
+    redirect_to current_user
+  end
+
+  def destroy
+    rating = Rating.find(params[:id])
+    rating.delete
+    redirect_to user_path(current_user)
   end
 
   private

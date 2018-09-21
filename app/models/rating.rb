@@ -9,5 +9,9 @@ class Rating < ApplicationRecord
     " #{beer.name} #{score}"
   end
 
+  def rated_by
+    "#{user.username}"
+  end
+
   def average; end
 end
