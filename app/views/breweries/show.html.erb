@@ -19,7 +19,7 @@
 <% if @brewery.ratings.empty? %>
  Brewery has not yet been rated!
 <% else %>
-  <%= @brewery.average_rating %>
+  <%= @brewery.average_rating("Brewery") %>
 <% end %>
 
 <br /><br />

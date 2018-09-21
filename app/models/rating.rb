@@ -1,13 +1,13 @@
-class Rating < ApplicationRecord
-    belongs_to :beer
-    
-    # to_s aina välillä lakkaa toimimasta ja alkoi ärsyttää
-    # siksi uudelleennimesin tämän metodin...
-    def to_string
-        "#{beer.name} #{score}"
-    end
+# frozen_string_literal: true
 
-    def average
-        
-    end
+# top level comment
+class Rating < ApplicationRecord
+  belongs_to :beer
+  belongs_to :user
+  # to_s sometimes didn't work so that's why this method is created
+  def to_s
+    " #{beer.name} #{score}"
+  end
+
+  def average; end
 end
