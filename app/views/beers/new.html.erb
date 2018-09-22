@@ -3,8 +3,20 @@
 <!--
 <%= render 'form', beer: @beer %>
 -->
-
 <%= form_for(@beer) do |f| %>
+  
+  <% if @beer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@beer.errors.count, "error") %> prohibited beer from being saved:</h2>
+
+      <ul>
+      <% @beer.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>  
+
   <div class="field">
     <label for="beer_name">Name</label>
     <%= f.text_field :name %>
@@ -21,8 +33,8 @@
     <%= f.select :brewery_id, options_from_collection_for_select(@breweries, :id, :to_s) %>
   </div>
 
-<div class="actions">
-  <%= f.submit %>
+  <div class="actions">
+    <%= f.submit %>
   </div>
 <% end %>
 

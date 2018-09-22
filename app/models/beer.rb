@@ -7,6 +7,8 @@ class Beer < ApplicationRecord
   belongs_to :brewery
   has_many :ratings, dependent: :destroy
 
+  validates :name, presence: TRUE
+
   def to_s
     "#{brewery.name}: #{name}"
   end
@@ -19,6 +21,6 @@ class Beer < ApplicationRecord
 end
 
 # top level comment
-#class Rating < ApplicationRecord
+# class Rating < ApplicationRecord
 #  belongs_to :beer
-#end
+# end
