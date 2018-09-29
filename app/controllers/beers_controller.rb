@@ -3,7 +3,8 @@
 # top level coment
 class BeersController < ApplicationController
   before_action :set_beer, only: %i[show edit update destroy]
-
+  before_action :ensure_that_signed_in, except: [:index, :show]
+  
   # GET /beers
   # GET /beers.json
   def index
@@ -31,8 +32,6 @@ class BeersController < ApplicationController
   # POST /beers.json
   def create
     @beer = Beer.new(beer_params)
-    @breweries = Brewery.all
-    @styles = ['Weizen', 'Lager', 'Pale ale', 'IPA', 'Porter']
 
     respond_to do |format|
       if @beer.save
@@ -42,6 +41,9 @@ class BeersController < ApplicationController
         end
         format.json { render :show, status: :created, location: @beer }
       else
+        @breweries = Brewery.all
+        @styles = ['Weizen', 'Lager', 'Pale ale', 'IPA', 'Porter']
+        
         # render :new
         format.html { render action: 'new' }
         format.json { render json: @beer.errors, status: :unprocessable_entity }

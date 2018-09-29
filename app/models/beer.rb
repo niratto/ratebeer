@@ -9,6 +9,7 @@ class Beer < ApplicationRecord
   has_many :raters, through: :ratings, source: :user
 
   validates :name, presence: TRUE
+  validates :style, presence: TRUE
 
   def to_s
     "#{brewery.name}: #{name}"
