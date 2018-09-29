@@ -1,6 +1,9 @@
 # README
-Travis: https://travis-ci.org/niratto/ratebeer
+
 Heroku-app: https://nvihervu-ratebeer.herokuapp.com/beers
+
+Travis:
+[![Build Status](https://travis-ci.org/niratto/ratebeer.svg?branch=master)](https://travis-ci.org/niratto/ratebeer)
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
