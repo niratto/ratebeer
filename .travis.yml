@@ -1,8 +1,13 @@
 language: ruby
-
 rvm:
 - 2.5.1
-
 script:
-- bundle exec rails db:migrate 
+- bundle exec rails db:migrate
 - bundle exec rspec -fd spec
+deploy:
+  provider: heroku
+  api_key:
+    secure: BLkUquCA0KA10pAYZgk3JSi2GBl6Aw/qPpNJ5JqitsRXiIj29Py7Pv2b/QdxIfykdJXBEPaRg9ElV60LFmzcC//b7X45CAeyyQriYmGs5wtju1KgyRXznzE7ppNoskY/DTAXaS2Vb+2ppvcBeH8pFuYGcS4Ose4ODnnf8iKSmlirnsKvvzotErSnT6MG4jfdnE6ynbiALrkNJDeTCWxkcpnMVKNXleurUY2EKsa+1mKE9hGTcKb8JuAEXZThiUoNMoicCda+3OIPIzYEBp3xFnZpJe09QvH4L+CVNXNCHNgxGl/l+EWOoVU+ut0lNgxeK6M9PxFVkhbQQA4ItqpgfavtuWHluF+hV49tgZm8dhxq10/CYeJjZmdTzjdrXAF5NoMjdlv6S3fh+BzKk2EqywR7gQyps14blW72bWsD4Dq2yvBnf5hGJfMWbdcKa6wORKbOASv7Gg1o2Yy0oKtXvX+/v//By9JuxxAB/Vx+XCuXUl8tgpImuLPQw9/EwgwNOijARDcA1UUt3m9lGrL6/60dbJT57f62k0EK//f/c16406hXDZ6XQKJna6SRVZjuljHY6MDqpMUvZOn+zONSRUYGpXDdNTJLWbTqMMtAhfaHR6J8PdWRJs2NqKw+njYN9bXpgFI7IrwXynHO75CN+b2HoG9w03lBeez54hMFVMk=
+  app: nvihervu-ratebeer
+  on:
+    repo: niratto/ratebeer
