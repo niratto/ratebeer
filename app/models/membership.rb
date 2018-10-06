@@ -6,4 +6,8 @@ class Membership < ApplicationRecord
       scope: :user,
       message: "you are already a member!"
     }
+
+    def memberName
+      user.username.to_s
+    end
   end
