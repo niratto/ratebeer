@@ -11,3 +11,7 @@ deploy:
   app: nvihervu-ratebeer
   on:
     repo: niratto/ratebeer
+
+env:
+  BEERMAPPING_APIKEY: 9a54ebca4f06c724b47ac3e7f89a9a3b
+  APIXU_APIKEY: b6d40dc1db5040a68f1205945180510
