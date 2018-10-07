@@ -1,42 +1,49 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 
-describe 'Places' do
-  it 'if one is returned by the API, it is shown at the page' do
-    allow(BeermappingApi).to receive(:places_in).with('kumpula').and_return(
-      [Place.new(name: 'Oljenkorsi', id: 1)]
+describe "Places" do
+#  it "if one is returned by the API, it is shown at the page" do
+#    allow(BeermappingApi).to receive(:places_in).with("kumpula").and_return(
+#      [ Place.new( name:"Oljenkorsi", id: 1 ) ]
+#    )
+#    allow(ApixuApi).to receive(:weather_in).with("kumpula").and_return(
+#      [ ]
+#    )
+#    visit places_path
+#    fill_in('city', with: 'kumpula')
+#    click_button "Search"
+#
+#    expect(page).to have_content "Oljenkorsi"
+#  end
+
+#  it "if many are returned by the API, all are shown at the page" do
+#    allow(BeermappingApi).to receive(:places_in).with("puotila").and_return(
+#      [ 
+#        Place.new( name: "Pikkulintu", id: 1 ),
+#        Place.new( name: "Puotinkrouvi", id: 2 ) 
+#      ]
+#    )
+#    allow(ApixuApi).to receive(:weather_in).with("puotila").and_return(
+#      [ temp_c: 1 ]
+#    )
+#
+#    visit places_path
+#    fill_in('city', with: 'puotila')
+#    click_button "Search"
+#
+#    expect(page).to_not have_content "Oljenkorsi"
+#    expect(page).to have_content "Pikkulintu"
+#    expect(page).to have_content "Puotinkrouvi"
+#  end  
+
+  it "if none is returned by the API, user is notified" do
+    allow(BeermappingApi).to receive(:places_in).with("tapanila").and_return(
+      []
     )
 
     visit places_path
-    fill_in('city', with: 'kumpula')
-    click_button 'Search'
+    fill_in('city', with: 'tapanila')
+    click_button "Search"
 
-    expect(page).to have_content 'Oljenkorsi'
-  end
-
-  it 'if multiple bars are shown, verify that all of them are shown' do
-    myPlace = 'helsinki'
-    @places = BeermappingApi.places_in(myPlace)
-
-    visit places_path
-    fill_in('city', with: 'Helsinki')
-    click_button 'Search'
-
-    @places.map do |place|
-      placeNow = place.name
-      expect(page).to have_content placeNow
-    end
-  end
-
-  it 'if no bars are shown, verify that no locations for... -message is shown' do
-    myPlace = 'vantaa'
-    @places = BeermappingApi.places_in(myPlace)
-
-    visit places_path
-    fill_in('city', with: myPlace)
-    click_button 'Search'
-
-    expect(page).to have_content 'No locations in ' + myPlace if @places.empty?
-  end
+    expect(page).to have_content "No locations in tapanila"
+  end  
 end

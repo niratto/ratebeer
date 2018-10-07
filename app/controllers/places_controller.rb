@@ -1,28 +1,19 @@
-# frozen_string_literal: true
-
-# top-level comment
 class PlacesController < ApplicationController
-  def index; end
-
-  def search
-    @weathers = ApixuApi.weather_in(params[:city])
-    @places = BeermappingApi.places_in(params[:city])
-
-    if @weathers.empty?
-      redirect_to places_path, notice: "No weather in #{params[:city]}"
-    elsif @places.empty?
-      redirect_to places_path, notice: "No locations in #{params[:city]}"
-    else
-      render :index
-    end
+  def index
   end
 
   def show
-    @places = BeermappingApi.bar_info(params[:id])
+    @place = BeermappingApi.place_in(session[:city], params[:id])
+  end
+
+  def search
+    @places = BeermappingApi.places_in(params[:city])
     if @places.empty?
-      redirect_to places_path, notice: "No locations in #{params[:id]}"
+      redirect_to places_path, notice: "No locations in #{params[:city]}"
     else
-      #render :index
+      @weather = ApixuApi.weather_in(params[:city])
+      session[:city] = params[:city]
+      render :index
     end
   end
 end

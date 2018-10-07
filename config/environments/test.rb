@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+ENV["BEERMAPPING_APIKEY"] = "9a54ebca4f06c724b47ac3e7f89a9a3b"
+ENV["APIXU_APIKEY"] = "b6d40dc1db5040a68f1205945180510"
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in
   # config/application.rb.
