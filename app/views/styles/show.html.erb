@@ -16,5 +16,6 @@
   <% end %>
 </ul>
 
-<%= link_to 'Edit', edit_style_path(@style) %> |
+<%= edit_and_destroy_buttons(@style) %>
+<br /><br />
 <%= link_to 'Back', styles_path %>

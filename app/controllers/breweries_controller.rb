@@ -4,6 +4,7 @@
 class BreweriesController < ApplicationController
   before_action :set_brewery, only: %i[show edit update destroy]
   before_action :ensure_that_signed_in, except: [:index, :show]
+  before_action :must_be_admin, only: :destroy
 
   # GET /breweries
   # GET /breweries.json
@@ -80,6 +81,15 @@ class BreweriesController < ApplicationController
     end
   end
 
+  def toggle_activity
+    brewery = Brewery.find(params[:id])
+    brewery.update_attribute :active, (not brewery.active)
+  
+    new_status = brewery.active? ? "active" : "retired"
+  
+    redirect_to brewery, notice:"brewery activity status changed to #{new_status}"
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -105,6 +115,12 @@ class BreweriesController < ApplicationController
       # koodilohkon arvo on sen viimeisen komennon arvo eli true/false riippuen
       # kirjautumisen onnistumisesta
       login_ok
+    end
+  end
+
+  def must_be_admin
+    unless current_user && current_user.admin?
+      redirect_to breweries_path, notice: "NOTE!! Only admins can destroy breweries in this app!"
     end
   end
 end

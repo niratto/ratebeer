@@ -13,6 +13,10 @@ Rails.application.routes.draw do
   # get 'ratings/new', to:'ratings#new'
   # post 'ratings', to: 'ratings#create'
 
+  resources :breweries do
+    post 'toggle_activity', on: :member
+  end
+  
   get 'signup', to: 'users#new'
   resources :ratings, only: %i[index new create destroy]
 

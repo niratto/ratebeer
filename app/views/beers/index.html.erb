@@ -21,7 +21,7 @@
 <% if beer.ratings.empty? %>
  -
 <% else %>
-  <%= beer.average_rating %>
+  <%= round(beer.average_rating) %>
 <% end %>
         </td>
         <td><%= link_to 'Edit', edit_beer_path(beer) if current_user %></td>
