@@ -13,15 +13,20 @@
 
   <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class: 'form-control' %>
   </div>
 
   <div class="field">
     <%= form.label :year %>
-    <%= form.number_field :year %>
+    <%= form.number_field :year, class: 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :active %>
+    <%= f.check_box :active %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "New Brewery", class: 'btn btn-primary' %>
   </div>
 <% end %>

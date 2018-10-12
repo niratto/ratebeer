@@ -10,6 +10,9 @@ class Brewery < ApplicationRecord
                                    less_than_or_equal_to: 2018,
                                    only_integer: true }
 
+  scope :active, -> { where active: true }
+  scope :retired, -> { where active: [nil, false] }
+  
   def to_s
     name.to_s
   end

@@ -1,9 +1,7 @@
-# frozen_string_literal: true
-
-# top level coment
 class BeersController < ApplicationController
-  before_action :set_beer, only: %i[show edit update destroy]
-  before_action :ensure_that_signed_in, except: %i[index show]
+  before_action :set_beer, only: [:show, :edit, :update, :destroy]
+  before_action :set_breweries_and_styles_for_template, only: [:new, :edit, :create]
+  before_action :ensure_that_signed_in, except: [:index, :show]
 
   # GET /beers
   # GET /beers.json
@@ -21,14 +19,10 @@ class BeersController < ApplicationController
   # GET /beers/new
   def new
     @beer = Beer.new
-    @breweries = Brewery.all
-    @styles = ['Weizen', 'Lager', 'Pale ale', 'IPA', 'Porter']
   end
 
   # GET /beers/1/edit
   def edit
-    @breweries = Brewery.all
-    @styles = ['Weizen', 'Lager', 'Pale ale', 'IPA', 'Porter']
   end
 
   # POST /beers
@@ -38,17 +32,10 @@ class BeersController < ApplicationController
 
     respond_to do |format|
       if @beer.save
-        format.html do
-          redirect_to beers_path,
-                      notice: 'Beer was successfully created.'
-        end
+        format.html { redirect_to beers_path, notice: 'Beer was successfully created.' }
         format.json { render :show, status: :created, location: @beer }
       else
-        @breweries = Brewery.all
-        @styles = ['Weizen', 'Lager', 'Pale ale', 'IPA', 'Porter']
-
-        # render :new
-        format.html { render action: 'new' }
+        format.html { render :new }
         format.json { render json: @beer.errors, status: :unprocessable_entity }
       end
     end
@@ -59,10 +46,7 @@ class BeersController < ApplicationController
   def update
     respond_to do |format|
       if @beer.update(beer_params)
-        format.html do
-          redirect_to @beer, notice:
-          'Beer was successfully updated.'
-        end
+        format.html { redirect_to @beer, notice: 'Beer was successfully updated.' }
         format.json { render :show, status: :ok, location: @beer }
       else
         format.html { render :edit }
@@ -76,10 +60,7 @@ class BeersController < ApplicationController
   def destroy
     @beer.destroy
     respond_to do |format|
-      format.html do
-        redirect_to beers_url,
-                    notice: 'Beer was successfully destroyed.'
-      end
+      format.html { redirect_to beers_url, notice: 'Beer was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -91,9 +72,13 @@ class BeersController < ApplicationController
     @beer = Beer.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list
-  # through.
+  # Never trust parameters from the scary internet, only allow the white list through.
   def beer_params
-    params.require(:beer).permit(:name, :style, :brewery_id)
+    params.require(:beer).permit(:name, :style_id, :brewery_id)
+  end
+
+  def set_breweries_and_styles_for_template
+    @breweries = Brewery.all
+    @styles = Style.all
   end
 end

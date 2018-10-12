@@ -6,6 +6,7 @@ class RatingsController < ApplicationController
   # GET /breweries
   # GET /breweries.json
   def index
+    @last5ratings = Rating.last5
     @ratings = Rating.all
   end
 

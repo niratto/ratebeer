@@ -9,6 +9,8 @@ class Rating < ApplicationRecord
                                     less_than_or_equal_to: 50,
                                     only_integer: true }
 
+  scope :last5, -> { last(5) }
+
   # to_s sometimes didn't work so that's why this method is created
   def to_s
     " #{beer.name} #{score}"

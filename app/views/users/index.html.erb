@@ -1,8 +1,6 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Users</h1>
 
-<table>
+<table class="table table-hover">
   <thead>
     <tr>
       <th>Username</th>
@@ -15,8 +13,8 @@
       <tr>
         <td><%= user.username %></td>
         <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to('Edit', edit_user_path(user),class:'btn btn-outline-warning') %></td>
+        <td><%= link_to('Destroy', user, class:'btn btn-outline-danger',method: :delete, data: { confirm: 'Are you sure?' }) %></td>
       </tr>
     <% end %>
   </tbody>
@@ -24,4 +22,4 @@
 
 <br>
 
-<%= link_to 'New User', new_user_path %>
+<%= link_to('New User', new_user_path,class:'btn btn-outline-primary') %>

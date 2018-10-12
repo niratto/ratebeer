@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <h1>List of Ratings</h1>
 <p> Total number of ratings: <%= @ratings.count %> </p>
 <hr />
@@ -10,14 +8,21 @@
  <% end %>
 </ul>
 -->
+<h4>Last 5 ratings:</h4>
 <ul>
-  <% @ratings.each do |rating| %>
+  <% @last5ratings.each do |rating| %>
     <li> <%= rating.to_s %> <%= link_to rating.rated_by, user_path(rating.user_id) %> </li>
   <% end %>
 </ul>
+
+<h4>Top 3 beers:</h4>
+<ul><li>todo...</li></ul>
+
+<h4>Top 3 breweries:</h4>
+<ul><li>todo...</li></ul>
 
 <%= link_to 'list of beers', beers_path %>
 
 <br><br>
 
-<%= link_to 'New Rating', new_rating_path %>
+<%= link_to('New Rating', new_rating_path, class:'btn btn-outline-primary') %>
