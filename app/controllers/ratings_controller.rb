@@ -8,6 +8,10 @@ class RatingsController < ApplicationController
   def index
     @last5ratings = Rating.last5
     @ratings = Rating.all
+    @top_breweries = Brewery.top 3
+    @top_beers = Beer.top 3
+    @top_styles = Style.top 3
+    @most_active = User.most_active 3
   end
 
   # GET /ratings/new

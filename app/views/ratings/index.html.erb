@@ -8,19 +8,22 @@
  <% end %>
 </ul>
 -->
-<h4>Last 5 ratings:</h4>
-<ul>
-  <% @last5ratings.each do |rating| %>
-    <li> <%= rating.to_s %> <%= link_to rating.rated_by, user_path(rating.user_id) %> </li>
-  <% end %>
-</ul>
-
 <h4>Top 3 beers:</h4>
-<ul><li>todo...</li></ul>
+<%= render 'list', list: @top_beers %>
 
 <h4>Top 3 breweries:</h4>
-<ul><li>todo...</li></ul>
+<%= render 'list', list: @top_breweries %>
 
+<h4>Top 3 styles:</h4>
+<%= render 'list', list: @top_styles %>
+
+<h4>Top 3 activists:</h4>
+<%= render 'list', list: @most_active %>
+
+<h4>Last 5 ratings:</h4>
+<%= render 'list', list: @last5ratings %>
+
+<hr />
 <%= link_to 'list of beers', beers_path %>
 
 <br><br>

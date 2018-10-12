@@ -20,5 +20,6 @@ class Rating < ApplicationRecord
     user.username.to_s
   end
 
-  def average; end
+  def average
+  end
 end
