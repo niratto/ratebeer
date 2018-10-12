@@ -16,7 +16,11 @@ Rails.application.routes.draw do
   resources :breweries do
     post 'toggle_activity', on: :member
   end
-  
+
+  resources :users do
+    post 'toggle_activity', on: :member
+  end
+
   get 'signup', to: 'users#new'
   resources :ratings, only: %i[index new create destroy]
 

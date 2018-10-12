@@ -2,7 +2,15 @@
 
 <h2>
   <%= @user.username %>
+    <% if not @user.active  %>
+    <span class="badge badge-info">deactivated</span>
+  <% end %>
+
 </h2>
+
+<% if current_user.admin? and !@user.admin? %>
+<%= link_to "Change user's activity status", toggle_activity_user_path(@user.id), method: :post, class: "btn btn-outline-primary" %>
+<% end %>
 
 <% if @user.ratings.empty? %>
   <p>has not rate any beer</p>
