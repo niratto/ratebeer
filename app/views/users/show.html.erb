@@ -8,8 +8,10 @@
 
 </h2>
 
+<% if current_user %>
 <% if current_user.admin? and !@user.admin? %>
 <%= link_to "Change user's activity status", toggle_activity_user_path(@user.id), method: :post, class: "btn btn-outline-primary" %>
+<% end %>
 <% end %>
 
 <% if @user.ratings.empty? %>

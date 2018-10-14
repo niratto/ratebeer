@@ -21,6 +21,9 @@ class User < ApplicationRecord
                          message: 'must contain one capital letter and number'
                        }
 
+  attribute :admin, :boolean, default: false
+  attribute :active, :boolean, default: true
+  
   def self.most_active(n)
     most_active_in_asc_order = User.all.sort_by { |u| -(u.ratings.count || 0) }.first(n)
     # palauta listalta parhaat n kappaletta
