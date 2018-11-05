@@ -36,4 +36,7 @@ Rails.application.routes.draw do
   # get 'places/:id', to:'places#show'
   
   post 'places', to:'places#search'
+
+  get 'beerlist', to:'beers#list'
+  get 'brewerylist', to:'breweries#list'
 end

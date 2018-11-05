@@ -7,11 +7,17 @@ class RatingsController < ApplicationController
   # GET /breweries.json
   def index
     @last5ratings = Rating.last5
-    @ratings = Rating.all
-    @top_breweries = Brewery.top 3
-    @top_beers = Beer.top 3
-    @top_styles = Style.top 3
-    @most_active = User.most_active 3
+    @ratings = Rating.includes(:beer, :user).all
+    
+    TestJob.perform_async
+    
+    #Rails.cache.write('brewery top 3', Brewery.top(3), expires_in: 15.minutes)
+    @top_breweries = brewery.top(3)
+    #Rails.cache.write('beers top 3', Beer.top(3), expires_in: 15.minutes)
+    @top_beers = beer.top(3)
+    #Rails.cache.write('style top 3', Style.top(3), expires_in: 15.minutes)
+    @top_styles = style.top(3)
+    @most_active = User.most_active(3)
   end
 
   # GET /ratings/new

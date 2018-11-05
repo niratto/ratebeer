@@ -4,11 +4,11 @@
 class Beer < ApplicationRecord
   require 'ratings_average'
   include RatingAverage
-  belongs_to :brewery
+  belongs_to :brewery, touch: true
   belongs_to :style
   has_many :ratings, dependent: :destroy
   has_many :raters, through: :ratings, source: :user
-
+  
   validates :name, presence: TRUE
   validates :style, presence: TRUE
 

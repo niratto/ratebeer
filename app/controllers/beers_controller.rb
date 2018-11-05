@@ -1,22 +1,26 @@
+# frozen_string_literal: true
+
 class BeersController < ApplicationController
-  before_action :set_beer, only: [:show, :edit, :update, :destroy]
-  before_action :set_breweries_and_styles_for_template, only: [:new, :edit, :create]
-  before_action :ensure_that_signed_in, except: [:index, :show]
+  before_action :set_beer, only: %i[show edit update destroy]
+  before_action :set_breweries_and_styles_for_template, only: %i[new edit create]
+  before_action :ensure_that_signed_in, except: %i[index show]
   before_action :must_be_admin, only: :destroy
 
   # GET /beers
   # GET /beers.json
   def index
-    @beers = Beer.all
+    @order = params[:order] || 'name'
+    return if request.format.html? && fragment_exist?("beerlist-#{@order}")
   
-    order = params[:order] || 'name'
-  
-    @beers = case order
-      when 'name' then @beers.sort_by{ |b| b.name }
-      when 'brewery' then @beers.sort_by{ |b| b.brewery.name }
-      when 'style' then @beers.sort_by{ |b| b.style.name }
-    end
+    @beers = Beer.includes(:brewery, :style).all
+    @beers = case @order
+              when 'name' then @beers.sort_by(&:name)
+              when 'brewery' then @beers.sort_by{ |b| b.brewery.name }
+              when 'style' then @beers.sort_by{ |b| b.style.name }
+              end
   end
+
+  def list; end
 
   # GET /beers/1
   # GET /beers/1.json
@@ -31,12 +35,12 @@ class BeersController < ApplicationController
   end
 
   # GET /beers/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /beers
   # POST /beers.json
   def create
+    expire_fragment('beerlist')
     @beer = Beer.new(beer_params)
 
     respond_to do |format|
@@ -53,6 +57,7 @@ class BeersController < ApplicationController
   # PATCH/PUT /beers/1
   # PATCH/PUT /beers/1.json
   def update
+    expire_fragment('beerlist')
     respond_to do |format|
       if @beer.update(beer_params)
         format.html { redirect_to @beer, notice: 'Beer was successfully updated.' }
@@ -67,6 +72,7 @@ class BeersController < ApplicationController
   # DELETE /beers/1
   # DELETE /beers/1.json
   def destroy
+    expire_fragment('beerlist')
     @beer.destroy
     respond_to do |format|
       format.html { redirect_to beers_url, notice: 'Beer was successfully destroyed.' }
@@ -92,8 +98,8 @@ class BeersController < ApplicationController
   end
 
   def must_be_admin
-    unless current_user && current_user.admin?
-      redirect_to beers_path, notice: "NOTE!! Only admins can destroy beers in this app!"
+    unless current_user&.admin?
+      redirect_to beers_path, notice: 'NOTE!! Only admins can destroy beers in this app!'
     end
   end
 end
